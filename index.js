@@ -32,8 +32,8 @@ try {
 
   const client = new OSS({
     region: "oss-accelerate", // oss-cn-shanghai
-    accessKeyId: OSS_KEYID,
-    accessKeySecret: OSS_KEYSECRET,
+    accessKeyId: OSS_ID,
+    accessKeySecret: OSS_SECRET,
     bucket: BUCKET,
     secure: SSL
   });
