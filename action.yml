@@ -19,12 +19,8 @@ inputs:
     default: true
   files:
     description: ""
-    required: true
-    default: null
   dirs:
     description: ""
-    required: true
-    default: null
 runs:
   using: "node10"
   main: "dist/index.js"

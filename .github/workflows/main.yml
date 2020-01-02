@@ -12,6 +12,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
+          oss_id: "12"
           files:
             - from: "a"
               to: "b"
