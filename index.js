@@ -40,6 +40,7 @@ try {
   });
 
   const processFile = async file => {
+    if (!file) return;
     if (!fs.existsSync(file.from)) return;
     let stream = fs.createReadStream(file.from);
     let result = await client.putStream(file.to, stream);
@@ -48,23 +49,29 @@ try {
     );
   };
 
-  files.forEach(file => {
-    if (!file) return;
-    processFile(file);
-  });
-
-  dirs.forEach(dir => {
+  const processDir = dir => {
     if (!dir) return;
     if (!fs.existsSync(dir.from)) return;
-    console.log(dir);
-    fs.readdirSync(dir.from).forEach(
-      file => console.log(file)
-      // processFile({
-      //   from: path.join(dir.from, file),
-      //   to: path.join(dir.to, file)
-      // })
-    );
-  });
+
+    fs.readdirSync(dir.from).forEach(item => {
+      if (fs.lstatSync(item).isDirectory()) {
+        processDir({
+          from: path.join(dir, item),
+          to: dir.to
+        });
+      } else {
+        processFile({
+          from: path.join(dir.from, item),
+          to: path.join(dir.to, item)
+        });
+      }
+    });
+  };
+
+  files.forEach(file => processFile(file));
+  dirs.forEach(dir => processDir(dir));
+
+  console.log("Done!");
 } catch (error) {
   core.setFailed(error.message);
 }
