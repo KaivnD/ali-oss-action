@@ -12,9 +12,8 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          files:
-            - ./test.jobs
-            - ./aa
+          from: [test.js, abc.exe]
+          to: [noah/test.js, aa.bb]
 
       # Use the output from the `hello` step
       - name: Get the output time
