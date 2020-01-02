@@ -1,0 +1,26 @@
+name: "Deploy to Ali-OSS"
+description: "Greet someone and record the time"
+inputs:
+  oss_id: # id of input
+    description: "Who to greet"
+    required: true
+    default: null
+  oss_secret:
+    description: ""
+    required: true
+    default: null
+  bucket:
+    description: ""
+    required: true
+    default: null
+  ssl:
+    description: ""
+    required: false
+    default: true
+  files:
+    description: ""
+    required: true
+    default: null
+runs:
+  using: "node10"
+  main: "dist/index.js"
