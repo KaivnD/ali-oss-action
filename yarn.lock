@@ -7,6 +7,16 @@
   resolved "https://registry.npm.taobao.org/@actions/core/download/@actions/core-1.2.0.tgz#aa5f52b26c362c821d41557e599371a42f6c0b3d"
   integrity sha1-ql9Ssmw2LIIdQVV+WZNxpC9sCz0=
 
+"@types/ali-oss@^6.0.4":
+  version "6.0.4"
+  resolved "https://registry.npm.taobao.org/@types/ali-oss/download/@types/ali-oss-6.0.4.tgz#fc561cd990bcdc5953c833ed36b1a46972e7aaac"
+  integrity sha1-/FYc2ZC83FlTyDPtNrGkaXLnqqw=
+
+"@types/node@^13.1.2":
+  version "13.1.2"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.1.2.tgz#fe94285bf5e0782e1a9e5a8c482b1c34465fa385"
+  integrity sha1-/pQoW/XgeC4anlqMSCscNEZfo4U=
+
 "@zeit/ncc@^0.20.5":
   version "0.20.5"
   resolved "https://registry.npm.taobao.org/@zeit/ncc/download/@zeit/ncc-0.20.5.tgz#a41af6e6bcab4a58f4612bae6137f70bce0192e3"
@@ -115,6 +125,11 @@ co@4, co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.npm.taobao.org/co/download/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
+
+commander@~2.20.3:
+  version "2.20.3"
+  resolved "https://registry.npm.taobao.org/commander/download/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  integrity sha1-/UhehMA+tIgcIHIrpIA16FMa6zM=
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -829,6 +844,19 @@ type-check@~0.3.2:
   integrity sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=
   dependencies:
     prelude-ls "~1.1.2"
+
+typescript@^3.7.4:
+  version "3.7.4"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.7.4.tgz#1743a5ec5fef6a1fa9f3e4708e33c81c73876c19"
+  integrity sha1-F0Ol7F/vah+p8+RwjjPIHHOHbBk=
+
+uglify-js@^3.7.3:
+  version "3.7.3"
+  resolved "https://registry.npm.taobao.org/uglify-js/download/uglify-js-3.7.3.tgz#f918fce9182f466d5140f24bb0ff35c2d32dcc6a"
+  integrity sha1-+Rj86RgvRm1RQPJLsP81wtMtzGo=
+  dependencies:
+    commander "~2.20.3"
+    source-map "~0.6.1"
 
 unescape@^1.0.1:
   version "1.0.1"

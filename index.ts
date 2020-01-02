@@ -1,6 +1,11 @@
-const core = require("@actions/core");
-const OSS = require("ali-oss");
-const fs = require("fs");
+import core from "@actions/core";
+import OSS from "ali-oss";
+import fs from "fs";
+
+declare interface FileItem {
+  from: string;
+  to: string;
+}
 
 try {
   const OSS_ID = core.getInput("oss_id");
@@ -8,14 +13,15 @@ try {
   const BUCKET = core.getInput("bucket");
   const SSL = core.getInput("ssl");
 
-  const prepare = str =>
+  const prepare = (str: string): (FileItem | undefined)[] =>
     str.split("\n").map(item => {
       const tmp = item.trim().split("=>");
       if (tmp.length == 2) {
-        return {
+        let fileItem: FileItem = {
           from: tmp[0],
           to: tmp[1]
         };
+        return fileItem;
       }
     });
 
@@ -35,16 +41,18 @@ try {
     accessKeyId: OSS_ID,
     accessKeySecret: OSS_SECRET,
     bucket: BUCKET,
-    secure: SSL
+    secure: SSL === "true"
   });
 
-  files.forEach(async file => {
+  files.forEach(async (file: FileItem | undefined) => {
     if (!file) return;
     if (!fs.existsSync(file.from)) return;
     let stream = fs.createReadStream(file.from);
     let result = await client.putStream(file.to, stream);
     console.log(
-      `[${result.res.statusCode}] Put ${result.name} to OSS is ${result.res.statusMessage}`
+      `[${result.res.status}] Put ${result.name} to OSS is ${
+        result.res.status === 200 ? "success" : "faild"
+      }`
     );
   });
 
