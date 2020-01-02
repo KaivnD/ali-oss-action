@@ -55,30 +55,35 @@ try {
 
   const processDir = dir => {
     if (!dir) return;
-    if (!fs.existsSync(dir.from)) return;
+    const dirAbsPath = path.resolve(dir.from);
+    if (!fs.existsSync(dirAbsPath)) return;
     core.info(`Got a directory ${dir.from} to deploy`);
-    fs.readdirSync(dir.from).forEach(item => {
-      if (fs.lstatSync(item).isDirectory()) {
+    fs.readdirSync(dirAbsPath).forEach(item => {
+      const pathItem = path.join(dirAbsPath, item);
+      if (fs.lstatSync(pathItem).isDirectory()) {
         core.info(
-          `There is another directory ${item} inside ${dir.from} to deploy`
+          `There is another directory ${pathItem} inside ${dirAbsPath} to deploy`
         );
         processDir({
-          from: path.join(dir.from, item),
+          from: pathItem,
           to: dir.to
         });
       } else {
         processFile({
-          from: path.join(dir.from, item),
+          from: pathItem,
           to: path.join(dir.to, item)
         });
       }
     });
   };
 
-  files.forEach(file => processFile(file));
-  dirs.forEach(dir => processDir(dir));
-
-  core.info("AliOss deploy is Done!");
+  try {
+    files.forEach(file => processFile(file));
+    dirs.forEach(dir => processDir(dir));
+    core.info("AliOss deploy is Done!");
+  } catch (e) {
+    core.error(e.message);
+  }
 } catch (error) {
   core.setFailed(error.message);
 }
