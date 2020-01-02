@@ -56,12 +56,13 @@ try {
   dirs.forEach(dir => {
     if (!dir) return;
     if (!fs.existsSync(dir.from)) return;
-    const files = fs.readdirSync(dir.from);
-    files.forEach(file =>
-      processFile({
-        from: path.join(dir.from, file),
-        to: path.join(dir.to, file)
-      })
+    console.log(dir);
+    fs.readdirSync(dir.from).forEach(
+      file => console.log(file)
+      // processFile({
+      //   from: path.join(dir.from, file),
+      //   to: path.join(dir.to, file)
+      // })
     );
   });
 } catch (error) {
