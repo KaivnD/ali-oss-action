@@ -20,4 +20,4 @@ jobs:
             LICENSE=>LICENSE
           dirs: |
             .=>testPack
-            dist=>test
+            ./dist=>test
