@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "ncc build index.ts -o dist -m"
+    "build": "ncc build index.js -o dist -m"
   },
   "dependencies": {
     "@actions/core": "^1.2.0",
@@ -12,10 +12,6 @@
     "co": "4"
   },
   "devDependencies": {
-    "@types/ali-oss": "^6.0.4",
-    "@types/node": "^13.1.2",
-    "@zeit/ncc": "^0.20.5",
-    "typescript": "^3.7.4",
-    "uglify-js": "^3.7.3"
+    "@zeit/ncc": "^0.20.5"
   }
 }
