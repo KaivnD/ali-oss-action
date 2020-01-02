@@ -56,7 +56,7 @@ try {
     fs.readdirSync(dir.from).forEach(item => {
       if (fs.lstatSync(item).isDirectory()) {
         processDir({
-          from: path.join(dir, item),
+          from: path.join(dir.from, item),
           to: dir.to
         });
       } else {
