@@ -17,8 +17,18 @@ try {
   //   bucket: BUCKET,
   //   secure: SSL
   // });
-  console.log(core.getInput("files"));
-  console.log(core.getInput("dirs"));
+  console.log(
+    core
+      .getInput("files")
+      .split("\n")
+      .forEach(file => file.split("=>"))
+  );
+  console.log(
+    core
+      .getInput("dirs")
+      .split("\n")
+      .forEach(dir => dir.split("=>"))
+  );
 } catch (error) {
   core.setFailed(error.message);
 }

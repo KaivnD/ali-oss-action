@@ -5,15 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
-      # To use this repository's private action, you must check out the repository
       - name: Checkout
         uses: actions/checkout@v1
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
         with:
           oss_id: "12"
-          files:
-            - from: "a"
-              to: "b"
-            - from: "b1"
-              to: "bb"
+          files: |
+            test.ext=>noah/b.cc
+            acasd=>fff.ex
+          dir: |
+            bcd=>aac/bsc
