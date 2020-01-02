@@ -13,9 +13,12 @@ try {
     str.split("\n").map(item => {
       const tmp = item.trim().split("=>");
       if (tmp.length == 2) {
+        const from = tmp[0];
+        const to = tmp[1];
+        core.info(`Deply ${from} to ${to}`);
         return {
-          from: tmp[0],
-          to: tmp[1]
+          from: from,
+          to: to
         };
       }
     });
@@ -42,19 +45,23 @@ try {
   const processFile = async file => {
     if (!file) return;
     if (!fs.existsSync(file.from)) return;
+    core.info(`Got a file ${file.from} to deploy`);
     let stream = fs.createReadStream(file.from);
     let result = await client.putStream(file.to, stream);
-    console.log(
-      `[${result.res.statusCode}] Put ${result.name} to OSS is ${result.res.statusMessage}`
+    core.info(
+      `[${result.res.statusCode}] put ${result.name} to OSS is ${result.res.statusMessage}`
     );
   };
 
   const processDir = dir => {
     if (!dir) return;
     if (!fs.existsSync(dir.from)) return;
-
+    core.info(`Got a directory ${dir.from} to deploy`);
     fs.readdirSync(dir.from).forEach(item => {
       if (fs.lstatSync(item).isDirectory()) {
+        core.info(
+          `There is another directory ${item} inside ${dir.from} to deploy`
+        );
         processDir({
           from: path.join(dir.from, item),
           to: dir.to
@@ -71,7 +78,7 @@ try {
   files.forEach(file => processFile(file));
   dirs.forEach(dir => processDir(dir));
 
-  console.log("Done!");
+  core.info("AliOss deploy is Done!");
 } catch (error) {
   core.setFailed(error.message);
 }
