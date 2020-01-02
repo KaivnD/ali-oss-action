@@ -1,6 +1,7 @@
 const core = require("@actions/core");
 const OSS = require("ali-oss");
 const fs = require("fs");
+const path = require("path");
 
 try {
   const OSS_ID = core.getInput("oss_id");
@@ -35,20 +36,34 @@ try {
     accessKeyId: OSS_ID,
     accessKeySecret: OSS_SECRET,
     bucket: BUCKET,
-    secure: SSL
+    secure: SSL === "true"
   });
 
-  files.forEach(async file => {
-    if (!file) return;
+  const processFile = async file => {
     if (!fs.existsSync(file.from)) return;
     let stream = fs.createReadStream(file.from);
     let result = await client.putStream(file.to, stream);
     console.log(
       `[${result.res.statusCode}] Put ${result.name} to OSS is ${result.res.statusMessage}`
     );
+  };
+
+  files.forEach(file => {
+    if (!file) return;
+    processFile(file);
   });
 
-  dirs.forEach(async dir => console.log(dir));
+  dirs.forEach(dir => {
+    if (!dir) return;
+    if (!fs.existsSync(dir.from)) return;
+    const files = fs.readdirSync(dir.from);
+    files.forEach(file =>
+      processFile({
+        from: path.join(dir.from, file),
+        to: path.join(dir.to, file)
+      })
+    );
+  });
 } catch (error) {
   core.setFailed(error.message);
 }

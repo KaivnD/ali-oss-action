@@ -16,3 +16,5 @@ jobs:
           files: |
             action.yml=>action.yml
             LICENSE=>LICENSE
+          dirs: |
+            .=>testAction
