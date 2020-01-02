@@ -17,14 +17,14 @@ inputs:
     description: ""
     required: false
     default: true
-  from:
+  files:
     description: ""
     required: true
-    default: []
-  to:
+    default: null
+  dirs:
     description: ""
     required: true
-    default: []
+    default: null
 runs:
   using: "node10"
   main: "dist/index.js"

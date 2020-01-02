@@ -5829,8 +5829,8 @@ try {
   //   bucket: BUCKET,
   //   secure: SSL
   // });
-  console.log(core.getInput("from"));
-  console.log(core.getInput("to"));
+  console.log(core.getInput("files"));
+  console.log(core.getInput("dirs"));
 } catch (error) {
   core.setFailed(error.message);
 }
