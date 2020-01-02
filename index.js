@@ -71,7 +71,7 @@ try {
       } else {
         processFile({
           from: pathItem,
-          to: path.join(dir.to, item)
+          to: path.join(dir.to, path.relative(".", pathItem))
         });
       }
     });
