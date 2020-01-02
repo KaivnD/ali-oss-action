@@ -10,7 +10,6 @@ jobs:
         uses: actions/checkout@v1
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
-        id: hello
         with:
           oss_id: "12"
           files:
@@ -18,7 +17,3 @@ jobs:
               to: "b"
             - from: "b1"
               to: "bb"
-
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"

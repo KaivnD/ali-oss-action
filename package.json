@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "ncc build index.js -o dist"
+  },
   "dependencies": {
-    "@actions/core": "^1.2.0",
-    "@actions/github": "^2.0.0",
+    "@actions/core": "^1.1.1",
     "ali-oss": "^6.4.0"
   },
   "devDependencies": {

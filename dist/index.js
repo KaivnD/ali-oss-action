@@ -165,7 +165,45 @@ exports.quickSort = function (ary, comparator) {
 
 
 /***/ }),
-/* 2 */,
+/* 2 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+var os = __webpack_require__(87);
+var osxRelease = __webpack_require__(589);
+var winRelease = __webpack_require__(890);
+
+module.exports = function (platform, release) {
+	if (!platform && release) {
+		throw new Error('You can\'t specify a `release` without specfying `platform`');
+	}
+
+	platform = platform || os.platform();
+	release = release || os.release();
+
+	var id;
+
+	if (platform === 'darwin') {
+		id = osxRelease(release).name;
+		return 'OS X' + (id ? ' ' + id : '');
+	}
+
+	if (platform === 'linux') {
+		id = release.replace(/^(\d+\.\d+).*/, '$1');
+		return 'Linux' + (id ? ' ' + id : '');
+	}
+
+	if (platform === 'win32') {
+		id = winRelease(release);
+		return 'Windows' + (id ? ' ' + id : '');
+	}
+
+	return platform;
+};
+
+
+/***/ }),
 /* 3 */,
 /* 4 */
 /***/ (function(module) {
@@ -2966,12 +3004,7 @@ if (typeof process === 'undefined' || process.type === 'renderer' || process.bro
 /***/ }),
 /* 46 */,
 /* 47 */,
-/* 48 */
-/***/ (function(module) {
-
-module.exports = {"name":"ali-oss","version":"6.4.0","description":"aliyun oss(object storage service) node client","main":"lib/client.js","files":["lib","shims","dist"],"browser":{"lib/client.js":"./dist/aliyun-oss-sdk.js","mime":"./shims/mime.js","urllib":"./shims/xhr.js","utility":"./shims/utility.js","crypto":"./shims/crypto/crypto.js","fs":false,"child_process":false},"scripts":{"build-change-log":"standard-version","test":"mocha -t 60000 -r thunk-mocha -r should test/node/*.test.js","test-cov":"nyc node_modules/.bin/_mocha -t 60000 -r thunk-mocha -r should test/node/*.test.js","jshint":"jshint .","autod":"autod","build-test":"node browser-build.js > test/browser/build/aliyun-oss-sdk.js && node task/browser-test-build.js > test/browser/build/tests.js","browser-test":"npm run build-test && karma start","build-dist":"node browser-build.js > dist/aliyun-oss-sdk.js && MINIFY=1 node browser-build.js > dist/aliyun-oss-sdk.min.js","publish-to-npm":"node publish-npm-check.js && npm publish","publish-to-cdn":"node publish.js","snyk-protect":"snyk protect","prepublish":"npm run snyk-protect","lint-staged":"lint-staged","detect-secrets":"node task/detect-secrets"},"git-pre-hooks":{"pre-release":"npm run build-dist","post-release":["npm run publish-to-npm","npm run publish-to-cdn"],"pre-commit":"npm run lint-staged"},"repository":{"type":"git","url":"git://github.com/aliyun/oss-nodejs-sdk.git"},"keywords":["oss","client","file","aliyun"],"author":"dead_horse","license":"MIT","bugs":{"url":"https://github.com/aliyun/oss-nodejs-sdk/issues"},"engines":{"node":">=8"},"homepage":"https://github.com/aliyun/oss-nodejs-sdk","devDependencies":{"aliasify":"^2.0.0","autod":"^2.6.1","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.8.0","babel-preset-es2015":"^6.24.1","babel-register":"^6.26.0","babel-runtime":"^6.6.1","babelify":"^7.3.0","beautify-benchmark":"^0.2.4","benchmark":"^2.1.1","bluebird":"^3.1.5","browserify":"^13.3.0","co-fs":"^1.2.0","co-mocha":"^1.2.1","crypto-js":"^3.1.9-1","eslint":"^6.7.2","eslint-config-airbnb":"^16.1.0","eslint-plugin-import":"^2.9.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","filereader":"^0.10.3","git-pre-hooks":"^1.2.0","karma":"^1.7.1","karma-browserify":"^5.1.1","karma-chrome-launcher":"^2.2.0","karma-firefox-launcher":"^1.0.1","karma-ie-launcher":"^1.0.0","karma-mocha":"^1.3.0","karma-safari-launcher":"^1.0.0","lint-staged":"^9.5.0","mm":"^2.0.0","mocha":"^3.5.3","nyc":"^13.1.0","promise-polyfill":"^6.0.2","request":"^2.88.0","should":"^11.0.0","sinon":"^1.17.7","snyk":"^1.231.0","standard-version":"^4.4.0","stream-equal":"^1.1.0","thunk-mocha":"^1.0.3","timemachine":"^0.3.0","uglify-js":"^2.8.29","watchify":"^3.9.0"},"dependencies":{"address":"^1.0.0","agentkeepalive":"^3.4.1","any-promise":"^1.3.0","bowser":"^1.6.0","co-defer":"^1.0.0","copy-to":"^2.0.1","dateformat":"^2.0.0","debug":"^2.2.0","destroy":"^1.0.4","end-or-error":"^1.0.1","get-ready":"^1.0.0","humanize-ms":"^1.2.0","is-type-of":"^1.0.0","jstoxml":"^0.2.3","merge-descriptors":"^1.0.1","mime":"^1.3.4","mz-modules":"^2.1.0","platform":"^1.3.1","sdk-base":"^2.0.1","stream-http":"2.8.2","stream-wormhole":"^1.0.4","urllib":"^2.33.1","utility":"^1.8.0","xml2js":"^0.4.16"},"snyk":true,"lint-staged":{"*":["npm run detect-secrets --"]}};
-
-/***/ }),
+/* 48 */,
 /* 49 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -5352,7 +5385,7 @@ const is = __webpack_require__(564);
 const platform = __webpack_require__(771);
 const utility = __webpack_require__(718);
 const urllib = __webpack_require__(129);
-const pkg = __webpack_require__(48);
+const pkg = __webpack_require__(122);
 const dateFormat = __webpack_require__(422);
 const bowser = __webpack_require__(742);
 const signUtils = __webpack_require__(951);
@@ -7370,42 +7403,9 @@ exports.SmartBuffer = SmartBuffer;
 /* 120 */,
 /* 121 */,
 /* 122 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(module) {
 
-"use strict";
-
-var os = __webpack_require__(87);
-var osxRelease = __webpack_require__(589);
-var winRelease = __webpack_require__(890);
-
-module.exports = function (platform, release) {
-	if (!platform && release) {
-		throw new Error('You can\'t specify a `release` without specfying `platform`');
-	}
-
-	platform = platform || os.platform();
-	release = release || os.release();
-
-	var id;
-
-	if (platform === 'darwin') {
-		id = osxRelease(release).name;
-		return 'OS X' + (id ? ' ' + id : '');
-	}
-
-	if (platform === 'linux') {
-		id = release.replace(/^(\d+\.\d+).*/, '$1');
-		return 'Linux' + (id ? ' ' + id : '');
-	}
-
-	if (platform === 'win32') {
-		id = winRelease(release);
-		return 'Windows' + (id ? ' ' + id : '');
-	}
-
-	return platform;
-};
-
+module.exports = {"name":"ali-oss","version":"6.4.0","description":"aliyun oss(object storage service) node client","main":"lib/client.js","files":["lib","shims","dist"],"browser":{"lib/client.js":"./dist/aliyun-oss-sdk.js","mime":"./shims/mime.js","urllib":"./shims/xhr.js","utility":"./shims/utility.js","crypto":"./shims/crypto/crypto.js","fs":false,"child_process":false},"scripts":{"build-change-log":"standard-version","test":"mocha -t 60000 -r thunk-mocha -r should test/node/*.test.js","test-cov":"nyc node_modules/.bin/_mocha -t 60000 -r thunk-mocha -r should test/node/*.test.js","jshint":"jshint .","autod":"autod","build-test":"node browser-build.js > test/browser/build/aliyun-oss-sdk.js && node task/browser-test-build.js > test/browser/build/tests.js","browser-test":"npm run build-test && karma start","build-dist":"node browser-build.js > dist/aliyun-oss-sdk.js && MINIFY=1 node browser-build.js > dist/aliyun-oss-sdk.min.js","publish-to-npm":"node publish-npm-check.js && npm publish","publish-to-cdn":"node publish.js","snyk-protect":"snyk protect","prepublish":"npm run snyk-protect","lint-staged":"lint-staged","detect-secrets":"node task/detect-secrets"},"git-pre-hooks":{"pre-release":"npm run build-dist","post-release":["npm run publish-to-npm","npm run publish-to-cdn"],"pre-commit":"npm run lint-staged"},"repository":{"type":"git","url":"git://github.com/aliyun/oss-nodejs-sdk.git"},"keywords":["oss","client","file","aliyun"],"author":"dead_horse","license":"MIT","bugs":{"url":"https://github.com/aliyun/oss-nodejs-sdk/issues"},"engines":{"node":">=8"},"homepage":"https://github.com/aliyun/oss-nodejs-sdk","devDependencies":{"aliasify":"^2.0.0","autod":"^2.6.1","babel-plugin-transform-regenerator":"^6.26.0","babel-plugin-transform-runtime":"^6.8.0","babel-preset-es2015":"^6.24.1","babel-register":"^6.26.0","babel-runtime":"^6.6.1","babelify":"^7.3.0","beautify-benchmark":"^0.2.4","benchmark":"^2.1.1","bluebird":"^3.1.5","browserify":"^13.3.0","co-fs":"^1.2.0","co-mocha":"^1.2.1","crypto-js":"^3.1.9-1","eslint":"^6.7.2","eslint-config-airbnb":"^16.1.0","eslint-plugin-import":"^2.9.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","filereader":"^0.10.3","git-pre-hooks":"^1.2.0","karma":"^1.7.1","karma-browserify":"^5.1.1","karma-chrome-launcher":"^2.2.0","karma-firefox-launcher":"^1.0.1","karma-ie-launcher":"^1.0.0","karma-mocha":"^1.3.0","karma-safari-launcher":"^1.0.0","lint-staged":"^9.5.0","mm":"^2.0.0","mocha":"^3.5.3","nyc":"^13.1.0","promise-polyfill":"^6.0.2","request":"^2.88.0","should":"^11.0.0","sinon":"^1.17.7","snyk":"^1.231.0","standard-version":"^4.4.0","stream-equal":"^1.1.0","thunk-mocha":"^1.0.3","timemachine":"^0.3.0","uglify-js":"^2.8.29","watchify":"^3.9.0"},"dependencies":{"address":"^1.0.0","agentkeepalive":"^3.4.1","any-promise":"^1.3.0","bowser":"^1.6.0","co-defer":"^1.0.0","copy-to":"^2.0.1","dateformat":"^2.0.0","debug":"^2.2.0","destroy":"^1.0.4","end-or-error":"^1.0.1","get-ready":"^1.0.0","humanize-ms":"^1.2.0","is-type-of":"^1.0.0","jstoxml":"^0.2.3","merge-descriptors":"^1.0.1","mime":"^1.3.4","mz-modules":"^2.1.0","platform":"^1.3.1","sdk-base":"^2.0.1","stream-http":"2.8.2","stream-wormhole":"^1.0.4","urllib":"^2.33.1","utility":"^1.8.0","xml2js":"^0.4.16"},"snyk":true,"lint-staged":{"*":["npm run detect-secrets --"]}};
 
 /***/ }),
 /* 123 */,
@@ -46459,7 +46459,7 @@ function getSocketTimeout(socket) {
  * Module dependencies.
  */
 
-var osName = __webpack_require__(122);
+var osName = __webpack_require__(2);
 
 var USER_AGENT = 'Node.js/' + process.version.slice(1)
   + ' (' + osName() + '; ' + process.arch + ')';
