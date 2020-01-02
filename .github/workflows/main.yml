@@ -10,9 +10,9 @@ jobs:
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
         with:
-          oss_id: "12"
+          oss_id: ${{secrets.OSS_ID}}
+          oss_secret: ${{secrets.OSS_SECRET}}
+          bucket: "ncfz"
           files: |
-            test.ext=>noah/b.cc
-            acasd=>fff.ex
-          dir: |
-            bcd=>aac/bsc
+            action.yml=>action.yml
+            LICENSE=>LICENSE

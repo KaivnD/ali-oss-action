@@ -19,8 +19,10 @@ inputs:
     default: true
   files:
     description: ""
+    default: ""
   dirs:
     description: ""
+    default: ""
 runs:
   using: "node12"
   main: "dist/index.js"
