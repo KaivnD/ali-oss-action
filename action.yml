@@ -22,5 +22,5 @@ inputs:
   dirs:
     description: ""
 runs:
-  using: "node10"
+  using: "node12"
   main: "dist/index.js"
