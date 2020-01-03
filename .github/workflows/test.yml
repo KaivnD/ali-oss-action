@@ -16,7 +16,4 @@ jobs:
           oss_secret: ${{secrets.OSS_SECRET}}
           bucket: "ncfz"
           files: |
-            ./*.yml=>./*.yml
-          dirs: |
-            .=>testPack
-            ./dist=>test
+            ./*.yml=>*.yml

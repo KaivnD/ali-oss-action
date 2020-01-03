@@ -15,7 +15,6 @@ try {
       if (tmp.length == 2) {
         const from = tmp[0];
         const to = tmp[1];
-        core.info(`Deply ${from} to ${to}`);
         return {
           from: from,
           to: to
