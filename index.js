@@ -73,7 +73,11 @@ try {
       const pathItem = path.join(dirAbsPath, item);
       const pathInfo = path.parse(pathItem);
       if (ext !== "NOEXTREQUIRED") {
-        if (pathInfo.ext !== ext) continue;
+        core.info(`Find *${ext} from ${dirAbsPath}`);
+        if (pathInfo.ext !== ext) {
+          core.info(`${pathInfo.ext} : ${ext}`);
+          continue;
+        }
       }
 
       if (fs.lstatSync(pathItem).isDirectory()) {
