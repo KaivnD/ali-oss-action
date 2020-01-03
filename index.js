@@ -43,7 +43,6 @@ try {
 
   const processFile = async file => {
     if (!file) return;
-    if (!fs.existsSync(file.from)) return;
     let fileInfo = path.parse(file.from);
     if (fileInfo.name === "*") {
       processDir(
@@ -54,6 +53,7 @@ try {
         fileInfo.ext
       );
     } else {
+      if (!fs.existsSync(file.from)) return;
       core.info(`Got a file ${file.from} to deploy`);
       let stream = fs.createReadStream(file.from);
       let result = await client.putStream(file.to, stream);
