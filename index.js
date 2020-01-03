@@ -45,21 +45,36 @@ try {
   const processFile = async file => {
     if (!file) return;
     if (!fs.existsSync(file.from)) return;
-    core.info(`Got a file ${file.from} to deploy`);
-    let stream = fs.createReadStream(file.from);
-    let result = await client.putStream(file.to, stream);
-    core.info(
-      `[${result.res.statusCode}] put ${result.name} to OSS is ${result.res.statusMessage}`
-    );
+    let fileInfo = path.parse(file.from);
+    if (fileInfo.name === "*") {
+      processDir(
+        {
+          from: fileInfo.dir,
+          to: path.dirname(file.to)
+        },
+        fileInfo.ext
+      );
+    } else {
+      core.info(`Got a file ${file.from} to deploy`);
+      let stream = fs.createReadStream(file.from);
+      let result = await client.putStream(file.to, stream);
+      core.info(
+        `[${result.res.statusCode}] put ${result.name} to OSS is ${result.res.statusMessage}`
+      );
+    }
   };
 
-  const processDir = dir => {
+  const processDir = (dir, ext = null) => {
     if (!dir) return;
     const dirAbsPath = path.resolve(dir.from);
     if (!fs.existsSync(dirAbsPath)) return;
     core.info(`Got a directory ${dir.from} to deploy`);
-    fs.readdirSync(dirAbsPath).forEach(item => {
+
+    for (let item of fs.readdirSync(dirAbsPath)) {
       const pathItem = path.join(dirAbsPath, item);
+      const pathInfo = path.parse(pathItem);
+      if (ext !== null && pathInfo.ext !== ext) continue;
+
       if (fs.lstatSync(pathItem).isDirectory()) {
         core.info(
           `There is another directory ${pathItem} inside ${dirAbsPath} to deploy`
@@ -74,7 +89,7 @@ try {
           to: path.join(dir.to, path.relative(".", pathItem))
         });
       }
-    });
+    }
   };
 
   try {
