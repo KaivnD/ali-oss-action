@@ -17,7 +17,6 @@ jobs:
           bucket: "ncfz"
           files: |
             ./*.yml=>./*.yml
-            LICENSE=>LICENSE
           dirs: |
             .=>testPack
             ./dist=>test

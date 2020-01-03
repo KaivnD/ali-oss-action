@@ -64,7 +64,7 @@ try {
     }
   };
 
-  const processDir = (dir, ext = null) => {
+  const processDir = (dir, ext = "NOEXTREQUIRED") => {
     if (!dir) return;
     const dirAbsPath = path.resolve(dir.from);
     if (!fs.existsSync(dirAbsPath)) return;
@@ -73,7 +73,9 @@ try {
     for (let item of fs.readdirSync(dirAbsPath)) {
       const pathItem = path.join(dirAbsPath, item);
       const pathInfo = path.parse(pathItem);
-      if (ext !== null && pathInfo.ext !== ext) continue;
+      if (ext !== "NOEXTREQUIRED") {
+        if (pathInfo.ext !== ext) continue;
+      }
 
       if (fs.lstatSync(pathItem).isDirectory()) {
         core.info(
