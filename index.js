@@ -84,9 +84,11 @@ try {
           to: dir.to
         });
       } else {
+        let fileUrl = path.join(dir.to, path.relative(".", pathItem));
+        if (ext !== "NOEXTREQUIRED") fileUrl = path.join(dir.to, pathInfo.base);
         processFile({
           from: pathItem,
-          to: urlib.parse(path.join(dir.to, path.relative(".", pathItem))).href
+          to: urlib.parse(fileUrl).href
         });
       }
     }
