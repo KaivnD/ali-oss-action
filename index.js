@@ -2,6 +2,7 @@ const core = require("@actions/core");
 const OSS = require("ali-oss");
 const fs = require("fs");
 const path = require("path");
+const urlib = require("url");
 
 try {
   const OSS_ID = core.getInput("oss_id");
@@ -85,7 +86,7 @@ try {
       } else {
         processFile({
           from: pathItem,
-          to: path.join(dir.to, path.relative(".", pathItem))
+          to: urlib.parse(path.join(dir.to, path.relative(".", pathItem))).href
         });
       }
     }
