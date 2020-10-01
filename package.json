@@ -7,7 +7,7 @@
     "build": "ncc build index.js -o dist -m"
   },
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "ali-oss": "^6.4.0",
     "co": "4"
   },
